@@ -7,12 +7,12 @@ from os.path import exists
 from tqdm import tqdm
 
 
-from data.NHLPlayByPlay import NHLPlayByPlay
+from Data.NHLPlayByPlay import NHLPlayByPlay
 
 
 def load_season_from_pkl(season = '2016', gameType="02") :
   localdir = os.getcwd() + '/nhlapidata'
-  csvdir = os.getcwd() + '/data'
+  csvdir = os.getcwd() + '/Data'
   FileName = localdir + '/' + season + gameType + '.pkl'
   output_csv = csvdir + '/' + season + gameType + '.csv'
   play_types = ['SHOT', 'GOAL']   # Fixed locally... with possibility to evolve and be received as a parameter
@@ -76,7 +76,7 @@ def load_season_from_pkl(season = '2016', gameType="02") :
               print(f"No Goalie-fulName data for GamePk {gameId} - EventIdx {x['about']['eventIdx']}")
 
 
-        row_x = [gameId,      #x['gamePk'],
+        row_x = [gameId,
               x['about']['eventIdx'], 
               x['result']['eventTypeId'],           
               x['about']['eventId'],
