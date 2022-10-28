@@ -11,8 +11,8 @@ from Data.NHLPlayByPlay import NHLPlayByPlay
 
 
 def load_season_from_pkl(season = '2016', gameType="02") :
-  localdir = os.getcwd() + '/nhlapidata'
-  csvdir = os.getcwd() + '/Data'
+  localdir = os.path.expanduser('~') + '/nhlapidata'
+  csvdir = os.path.expanduser('~')  + '/data'
   FileName = localdir + '/' + season + gameType + '.pkl'
   output_csv = csvdir + '/' + season + gameType + '.csv'
   play_types = ['SHOT', 'GOAL']   # Fixed locally... with possibility to evolve and be received as a parameter
@@ -76,7 +76,7 @@ def load_season_from_pkl(season = '2016', gameType="02") :
               print(f"No Goalie-fulName data for GamePk {gameId} - EventIdx {x['about']['eventIdx']}")
 
 
-        row_x = [gameId,
+        row_x = [gameId,      #x['gamePk'],
               x['about']['eventIdx'], 
               x['result']['eventTypeId'],           
               x['about']['eventId'],
@@ -99,7 +99,7 @@ def load_season_from_pkl(season = '2016', gameType="02") :
 
 
 def load_game_from_json(fileName):  #, playTypes = ['SHOT', 'GOAL']) :
-  # The types of events we're interested in  (acording to 'eventTypeId' from NHL live data):
+  # The types of events we're interested in  (according to 'eventTypeId' from NHL live data):
   play_types = ['SHOT', 'GOAL']   # Fixed locally... with possibility to evolve and be received as a parameter
 
   # Open the input data-file, with the json retrieved from NHL api
