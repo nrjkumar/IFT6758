@@ -3,7 +3,7 @@ import numpy as np
 import os
 import pickle
 #from IFT6758-PROJECT.
-
+""" Alternate Approach don't use this file as of now """
 localdir = os.path.expanduser('~') + '/nhlapidata/'
 
 def Load_Clean_Raw_Data(LogRawArtifact, localdir):
