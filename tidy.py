@@ -98,12 +98,12 @@ def load_season_from_pkl(season = '2016', gameType="02") :
   return
 
 
-def load_game_from_json(fileName):  #, playTypes = ['SHOT', 'GOAL']) :
+def load_game_from_json(file_Name):  #, playTypes = ['SHOT', 'GOAL']) :
   # The types of events we're interested in  (according to 'eventTypeId' from NHL live data):
   play_types = ['SHOT', 'GOAL']   # Fixed locally... with possibility to evolve and be received as a parameter
 
   # Open the input data-file, with the json retrieved from NHL api
-  with open(file_name, 'r') as f :
+  with open(file_Name, 'r') as f :
     data = json.load(f)
 
   events = data['liveData']['plays']['allPlays']

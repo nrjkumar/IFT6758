@@ -83,5 +83,25 @@ class NHLPlayByPlay:
             with open(FileName,'wb') as file:
                 pickle.dump(GameData,file)
             
+            self.seasons[season][GameType]["nbGames"] = len(GameData)
+
+            
             #Print a summary to the user of what was downloaded.
             print("Downloaded " + str(self.seasons[season][GameType]["nbGames"]) + " games and saved them to local cache in " + FileName)
+
+    def dataset_info(self):
+        """
+        Print a summary of the dataset
+        """
+        if self.GameId is None:  
+            for s in self.seasons:
+                print("Season: " + s )
+                for t in self.seasons[s]:
+                    print("  Game Type: " + t +"("+ self.SUPPORTED_GAME_TYPES[t] +") : "+ str(self.seasons[s][t]["nbGames"]) +  " games")    
+        else:
+            print(f"Live Game Id : {self.gameId} ; LastEventProcessed : {self.lastEventProcessed}")
+
+    def GameData(self,season,GameType):
+        if season in self.seasons:
+            if GameType in self.seasons[season]:
+                return self.seasons[season][GameType]['gameData']
