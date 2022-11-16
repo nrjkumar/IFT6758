@@ -107,7 +107,7 @@ def add_shot_angle(df: pd.DataFrame, inplace: bool = False) -> pd.DataFrame:
     return df
 
 
-def add_change_in_shot_angle(df: pd.DataFrame, inplace: bool = False) -> pd.DataFrame:
+def change_in_shot_angle(df: pd.DataFrame, inplace: bool = False) -> pd.DataFrame:
     """
     Function to create the column determining the absolute value of the change in angle relative to the center line
     between two consecutive shots.
