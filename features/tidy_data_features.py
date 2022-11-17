@@ -243,8 +243,8 @@ class tidy_dataframe:
                     
                     event_dict["home_strength"] = home_strength
                     event_dict["away_strength"] = away_strength
-                    event_dict["homepenaltystart"] = homepenaltystart
-                    event_dict["awaypenaltystart"] = awaypenaltystart
+                    event_dict["homepenaltystart"] = home_penalty_start
+                    event_dict["awaypenaltystart"] = away_penalty_start
                     event_dict['game_id'] = json_data['gamePk']
                     game_data.append(event_dict.copy())
                     event_dict.clear()
