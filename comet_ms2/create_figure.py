@@ -9,7 +9,7 @@ from scipy import stats
 from sklearn.calibration import CalibrationDisplay
 from sklearn.metrics import roc_curve, auc
 
-FIGURE_PATH = os.path.join(os.getcwd(),'baseline_figure')
+FIGURE_PATH = os.path.join(os.getcwd(),'baseline')
 
 
 def fig_roc_auc(y_val, y_pred_vec, fig_number,model_names,experiment=None) -> None:
