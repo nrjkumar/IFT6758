@@ -1,6 +1,6 @@
 from comet_ml import Experiment
 import numpy as np
-import os
+import os , sys
 from dotenv import load_dotenv
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
 from xgboost import XGBClassifier
@@ -8,7 +8,10 @@ from xgboost import XGBClassifier
 # utils_path = os.path.abspath(os.path.join('..'))
 # sys.path.append(utils_path)
 # from utils import *
-util_path = p = os.path.abspath('../..')
+#util_path = p = os.path.abspath('../..')
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from create_plot import *
 from utils import *
 load_dotenv()
@@ -53,9 +56,9 @@ def main():
 	y_pred_vec.append(np.random.uniform(0, 1, size=y_val.shape[0]))
 
 	experiment = Experiment(
-		api_key=os.getenv('COMET_API_KEY'),
-		project_name="ift-6758-milestone-2",
-		workspace="axelbogos",
+		api_key=COMET_API_KEY,
+        project_name="milestone2",
+        workspace="ift6758-17",
 	)
 
 	model_names = ['Distance', 'Angle', 'Distance + Angle', 'Random']
