@@ -2,7 +2,7 @@
 goal rate:https://s3.amazonaws.com/comet.ml/image_908262b2e150405286b7c746719bc397-b1QBelKXEP0Jaa13xfsG8gmKz.svg. 
 calibration:https://s3.amazonaws.com/comet.ml/image_908262b2e150405286b7c746719bc397-nMt4JkLhnLPCgKkdlUpylvWYX.svg. 
 cumulative of goals:https://s3.amazonaws.com/comet.ml/image_908262b2e150405286b7c746719bc397-LafVgYSFU2MKIw2Ab2J6fRBAp.svg. 
-roc curves:https://s3.amazonaws.com/comet.ml/image_908262b2e150405286b7c746719bc397-LafVgYSFU2MKIw2Ab2J6fRBAp.svg. 
+roc curves:https://s3.amazonaws.com/comet.ml/image_908262b2e150405286b7c746719bc397-aOCR0oJMpL85VThhRmmhv2YOv.svg
 
 
 # neutral network
