@@ -15,8 +15,8 @@ roc curves:https://s3.amazonaws.com/comet.ml/image_c824223775c7462db075dd2614399
 
 # adaboost
 goal rate:https://s3.amazonaws.com/comet.ml/image_1611f72e877c49e7b925e2d4ddc3a902-S0a2kcMc8ZROl3DCYAJ58IDrP.svg. 
-calibration:https://s3.amazonaws.com/comet.ml/image_1611f72e877c49e7b925e2d4ddc3a902-BLLq6kJd1UqLPCQPH6fehLvDq.svg. 
-cumulative of goals:https://s3.amazonaws.com/comet.ml/image_1611f72e877c49e7b925e2d4ddc3a902-S0a2kcMc8ZROl3DCYAJ58IDrP.svg. 
+calibration:https://s3.amazonaws.com/comet.ml/image_1611f72e877c49e7b925e2d4ddc3a902-UwLJfQKSN3pi9R1aKBdwVIkxY.svg.  
+cumulative of goals:https://s3.amazonaws.com/comet.ml/image_1611f72e877c49e7b925e2d4ddc3a902-KbtVw2xB1HqQ9NjJArdByV2pH.svg. 
 roc curves:https://s3.amazonaws.com/comet.ml/image_1611f72e877c49e7b925e2d4ddc3a902-BLLq6kJd1UqLPCQPH6fehLvDq.svg. 
 
 
