@@ -39,7 +39,7 @@ def shap_feature(X, y, model):
 
 
 def feature_selection(df_X, df_y, model):
-
+    
     # Normalization 
     # Zscore and Min-Max normalization
     cols = ['x_coordinate', 'y_coordinate',
@@ -57,7 +57,7 @@ def feature_selection(df_X, df_y, model):
         df_zscore[col] = (df_X[col] - df_X[col].mean())/df_X[col].std(ddof=0)
         # min max normalization
         df_minmax[col] = (df_X[col] - df_X[col].min())/ (df_X[col].max()- df_X[col].min())
-    
+       # print((df_minmax))
     #without nomarlization
     X = df_X.to_numpy()
     y = df_y.to_numpy()
@@ -79,7 +79,7 @@ def feature_selection(df_X, df_y, model):
     sel = VarianceThreshold(threshold=(.8 * (1 - .8)))
     X_new = sel.fit_transform(X)
     lowvar_scores_mean = np.mean(cross_val_score(model, X_new, y, cv=5))
-    
+    print(lowvar_scores_mean)
     #Univariate feature selection
     database = df_minmax.to_numpy()
     X = df_minmax.to_numpy()
@@ -97,7 +97,6 @@ def feature_selection(df_X, df_y, model):
     scores_base = np.mean(cross_val_score(model, X_new, y, cv=5))
     index = [11]
     for i in range(X.shape[1]):
-        print('hi')
         if (i == 11):
             pass
         else:

@@ -1,0 +1,17 @@
+requests
+pandas
+numpy
+matplotlib
+seaborn
+#jupyter==1.0.0
+tqdm
+scipy
+plotly
+lxml
+comet-ml
+flask
+lightgbm
+xgboost
+streamlit
+prettytable
+ipywidgets

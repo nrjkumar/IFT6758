@@ -1,0 +1,62 @@
+# # docker-compose.yml
+# version: '3'
+
+# services:
+#   serving:
+#     build:
+#       context: ./
+#       dockerfile: ./DockerFile.serving
+#     ports:
+#       - "5000:5000"
+#     environment:
+#       - COMET_API_KEY=${COMET_API_KEY}
+# #      args:
+# #        ARG: <ARG>
+# #    image: ift6758/serving:<TAG>
+
+#   jupyter:
+#     build:
+#       context: ./
+#       dockerfile: ./DockerFile.streamlit
+# #      args:
+# #        ARG: <ARG>
+# #    image: ift6758/jupyter:<TAG>
+#     ports:
+#       - "8501:8501"
+#     environment:
+#       - COMET_API_KEY=${COMET_API_KEY}
+
+
+# docker-compose.yml
+version: '3'
+
+services:
+  serving:
+    build:
+      context: ./
+      dockerfile: ./DockerFile.serving
+      args:
+        COMET_API_KEY: ${COMET_API_KEY}
+    image: nhl-serving:latest
+    networks:
+      - nhl-network
+    ports:
+      - 8080:8080
+    environment:
+      COMET_API_KEY: ${COMET_API_KEY}
+
+  streamlit:
+    build:
+      context: ./
+      dockerfile: ./DockerFile.streamlit
+      args:
+        COMET_API_KEY: ${COMET_API_KEY}
+    image: nhl-streamlit:latest
+    networks:
+      - nhl-network
+    ports:
+      - 8501:8501
+    environment:
+      COMET_API_KEY: ${COMET_API_KEY}
+networks:
+  nhl-network:

@@ -120,33 +120,3 @@ def load_data(features: List[str], train_val_seasons: List[str] = None, test_sea
         return X_train, y_train, X_val, y_val, X_test, y_test
     else:
         return X_train, y_train, X_test, y_test
-
-def load_stream_data(features: List[str], data, target: str = 'is_goal', use_standard_scaler: bool = True,return_as_numpy: bool = False,
-                   convert_bool_to_int=True, one_hot_encode_categoricals = True, scaler = None):
-        
-        assert features, 'Must provide training features'
-        
-        df = data.copy()
-        
-        df = df.drop(df.columns.difference(features), axis=1)
-        
-        if use_standard_scaler:
-            NUMERIC_COLS = df.select_dtypes([np.number]).columns
-        if scaler == None: #no scaler = train a new one 
-            scaler = StandardScaler()
-            df[NUMERIC_COLS] = scaler.fit_transform(df[NUMERIC_COLS])
-        else: # known scaler, don't fit
-             df[NUMERIC_COLS] = scaler.transform(df[NUMERIC_COLS])
-        if one_hot_encode_categoricals:
-            CAT_COLS = df.select_dtypes(exclude=["number", "bool_"]).columns
-            df = pd.get_dummies(data=df, columns=CAT_COLS)
-
-        if convert_bool_to_int:
-            BOOL_COLS = df.select_dtypes([bool]).columns
-            df[BOOL_COLS] = df[BOOL_COLS].astype(int)
-
-    
-        if return_as_numpy:
-            df = df.to_numpy()
-        
-        return df

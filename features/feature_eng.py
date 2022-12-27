@@ -122,3 +122,30 @@ def change_in_shot_angle(df: pd.DataFrame, inplace: bool = False) -> pd.DataFram
         prev_angle = df.iloc[index - 1]['shot_angle']
         df.loc[index, 'change_in_angle'] = np.abs(row['shot_angle'] - prev_angle)
     return df
+
+
+def feature_engineer(df_game_tidied):
+    """
+    The main function of the task feature engineering
+    :param df_game_tidied: The tidied version of nhl data, stored in a dataframe
+    :return: A new dataframe added all neccesary features.
+    """
+    df_game = df_game_tidied.copy()
+    
+    print("Start feature engineering for the tidied dataframe...")
+    
+    print("Start correcting incorrect coordinates and adding shot distance...")
+    #This function must always be called at first of all, because it help correcting wrong coordinates
+    df_game = add_shot_distance_and_correct_coordinates(df_game)
+
+    print("Start adding shot angle...")
+    df_game = add_shot_angle(df_game)
+
+    print("Start adding change in shot angle...")
+    df_game = add_change_in_shot_angle(df_game)
+
+    print("Start adding distance from last event and the shot speed...")
+    df_game = add_distance_from_last_event_and_speed(df_game)
+
+    print("Finish feature engineering!")
+    return df_game

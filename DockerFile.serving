@@ -1,0 +1,38 @@
+FROM python:3.7
+ARG COMET_API_KEY
+
+WORKDIR /code
+#COPY /ift6758/requirements.txt .
+
+
+# Add files
+
+COPY ./6-LGBM.pkl .
+COPY requirements.txt ./requirements.txt
+COPY client ./client
+COPY features ./features
+COPY models ./models
+# COPY ./ift6758/models/__init__.py ./ift6758/models/__init__.py
+COPY ./ ./ift6758/
+#COPY ./ift6758/__init__.py ./ift6758/__init__.py
+COPY ./app.py .
+
+# install libs
+#RUN pip install --upgrade pip
+RUN pip install -r ./requirements.txt
+
+# Environment variables
+ENV COMET_API_KEY=$COMET_API_KEY
+
+RUN pip install python-dotenv
+
+RUN pip install gunicorn
+
+EXPOSE 8080
+CMD ["gunicorn"  , "--bind", "0.0.0.0:8080", "app:app"]   
+
+#CMD ["gunicorn"  , "--bind", "0.0.0.0:8080", "app:app"]
+# expose ports
+
+
+

@@ -135,9 +135,7 @@ def main():
     )
     # Train Model with optimal params
     experiment = Experiment(
-        api_key=os.getenv('COMET_API_KEY'),
-        project_name="milestone2",
-        workspace="ift6758-17",
+        
     )
     model = XGBClassifier(**params)
     X_train = X_train.drop(columns=X_train.columns.difference(X_test.columns))

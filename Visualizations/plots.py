@@ -101,7 +101,7 @@ class IceHockey_plot:
                                   color="red",
                                   linewidth=2)
         plt.gca().add_patch(rect)
-        plt.text(130, 500, 'Zone of interest shown below', fontsize=15)
+        plt.text(130, 500, 'Zone of interest shown below', fontsize=12)
 
         plt.subplot(312)
         ax = sns.histplot(data=non_empty_net_zoomed, x='shot_distance')

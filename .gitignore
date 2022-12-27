@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -135,3 +136,13 @@ dmypy.json
 >>>>>>> cd937f0 (Update .gitignore)
 =======
 >>>>>>> 8e40d0d (xgBoost and Adaboost-initial)
+=======
+=======
+models/.env
+tuned_adaboost_model.pkl
+models/__pycache__/create_plot.cpython-310.pyc
+models/__pycache__/utils.cpython-310.pyc
+6-LGBM.pkl
+xgb_feature.pkl
+>>>>>>> 6042873 (Final-push)
+>>>>>>> 0389c72 (Final-push)

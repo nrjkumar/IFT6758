@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 
 def normalize_df(df):
     df_normalized = df.copy()
-    df_normalize
-    d['xCoordNorm'] = np.where(df['rinkSide'] == 'left', df['xCoord'], -1 * df['xCoord'])
+    df_normalized
+    df['xCoordNorm'] = np.where(df['rinkSide'] == 'left', df['xCoord'], -1 * df['xCoord'])
     df_normalized['yCoordNorm'] = np.where(df['rinkSide'] == 'left', df['yCoord'], -1 * df['yCoord'])
 
     return df_normalized
