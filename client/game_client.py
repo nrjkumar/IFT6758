@@ -14,6 +14,7 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 
 sys.path.append(parentdir)
+from feature_lists import *
 from features.utility import *
 from features.tidy_data_features import  tidy_dataframe
 from features.feature_eng  import *
@@ -45,7 +46,7 @@ class GameClient:
    
     def ping_game(self,file_path):
         df_game_tidied = tidy_dataframe(file_path)
-        df_game_features = feature_engineer(df_game_tidied)
+        df_game_features = feature_list
         last_event = df_game_features.iloc[-1]
         self.game = df_game_features
         self.update_model_df_length()
