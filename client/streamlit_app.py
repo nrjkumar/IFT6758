@@ -17,15 +17,13 @@ from features.tidy_data_features import  tidy_dataframe
 from features.feature_eng  import *
 #from ift6758.ift6758.client.game_client import GameClient
 from client.serving_client import ServingClient
-from client.game_client1 import Game_Client
+from client.game_client import Game_Client
 
 if 'gc_obj' not in st.session_state:
     st.session_state.gc_obj = Game_Client()
 
-drop_features_for_display = ['about_time_remaining', 'home_team', 'away_team', 'action_team_name',
-                             'event_type_id', 'about_goal_away', 'about_goal_home']
 
-all_imp_features = ['angle', 'distance_from_last_event', 'empty_net', 'shot_type_Wrap-around', 'y_coordinate', 'speed',
+prior_imp_features = ['angle', 'distance_from_last_event', 'empty_net', 'shot_type_Wrap-around', 'y_coordinate', 'speed',
                     'distance', 'x_coordinate', 'game_period', 'shot_type_Tip-In', 'shot_type_Wrist Shot',
                     'game_seconds']
 
@@ -62,7 +60,7 @@ if gameID:
             else:
                 df_input = feature_engineer(df=data)
                 if len(df_input) > 1:
-                    df_imp_features = df_input[all_imp_features]
+                    df_imp_features = df_input[prior_imp_features]
                     response = requests.post(
                         "http://serving:8080/predict",
                         # "http://localhost:8080/predict",
@@ -99,7 +97,7 @@ if gameID:
                                 delta=round(away_team_sum_of_expected_goals - away_team_current_score, 1))
                     st.header("Data and Predictions")
 
-                    df_input = df_input.drop(drop_features_for_display, axis=1)
+                   # df_input = df_input.drop(drop_features_for_display, axis=1)
                     st.write(df_input)
                 else:
                     st.write("No relevant data retrieved during this instance, please refresh and retry later !!")
