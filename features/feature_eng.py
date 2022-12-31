@@ -124,28 +124,120 @@ def change_in_shot_angle(df: pd.DataFrame, inplace: bool = False) -> pd.DataFram
     return df
 
 
-# def feature_engineer(df_game_tidied):
-#     """
-#     The main function of the task feature engineering
-#     :param df_game_tidied: The tidied version of nhl data, stored in a dataframe
-#     :return: A new dataframe added all neccesary features.
-#     """
-#     df_game = df_jhbjknklgame_tidied.copy()
+def shot_distance_calculation(x_shot, y_shot, rink_side):
+    """
+    A supporting function to calculate distance from the shot to the net
+    :param x_shot: x coordinate of the shot
+    :param y_shot: y coordinate of the shot
+    :param rink_side: side of the net, only accepts "left" or "right"
+    """
+    if(rink_side not in ['left','right']):
+        return ""
+    coor_net = np.array([89,0]) if rink_side=="right" else np.array([-89,0])
+    coor_shot = np.array([x_shot, y_shot]).astype(np.float)
+    return round(np.linalg.norm(coor_shot - coor_net))
+
+def add_shot_distance_coordinate_correction(df_game, is_fix_wrong_coor=False):
+    """
+    Calculate the shot distance and detect incorrect coordinates to fix them
+    :param df_game: The tidied data-frame
+    :return: A dataframe after correcting the coordinates with the added "shot distance" column
+    """
+    df_game_added_distance = df_game.copy()
+    df_game_added_distance = df_game_added_distance.astype({'x shot':'float','y shot':'float'})
+    np_shot_distance = df_game_added_distance.apply(lambda event: shot_distance_calculation(
+                                                    event['x shot'],
+                                                    event['y shot'],
+                                                    event['rinkSide']),
+                                                    axis=1)
     
-#     print("Start feature engineering for the tidied dataframe...")
+    np_shot_distance_inv = df_game_added_distance.apply(lambda event: shot_distance_calculation(
+                                                    -(event['x shot']),
+                                                    event['y shot'],
+                                                    event['rinkSide']),
+                                                    axis=1)
     
-#     print("Star,;,,;t correcting incorrect coordinates and adding shot distance...")
-#     #This functiklnknlkm;;;,on must always be called at first of all, because it help correcting wrong coordinates
-#     df_game = adknlkmlkd_shot_distance_and_correct_coordinates(df_game)
+    if(np.mean(np_shot_distance_inv) < np.mean(np_shot_distance)):
+        df_game_added_distance['shot distance'] = np_shot_distance_inv
+        # invert the rinkSide because this information is not correct
+        df_game_added_distance['rinkSide'] = df_game_added_distance['rinkSide'].apply(lambda side: "right" if side=="left" else "left")
+        # df_game_added_distance['x shot'] = df_game_added_distance['x shot']*(-1)
+        # df_game_added_distance['x last event'] = df_game_added_distance['x last event']*(-1)
+    else:
+        df_game_added_distance['shot distance'] = np_shot_distance
+    
+    return df_game_added_distance
 
-#     print("Start adding shot angle...")
-#     df_game = add_shot_angle(df_game)
+def compute_speed(distance_from_last_event, time_from_last_event):
+    """
+    A supporting function for calculating the speed of the shot, automatically ignore inappropriate values
+    :param distance_from_last_event: Distance of the shot from the previous event
+    :param time_from_last_event: Time from the previous event to the current shot
+    :return: The speed of the shot
+    """
+    if(distance_from_last_event!="" and time_from_last_event!=0):
+        return round(float(distance_from_last_event)/float(time_from_last_event))
+    else:
+        return ""
 
-#     print("Start adding change in shot angle...")
-#     df_game = add_change_in_shot_angle(df_game)
+def compute_distance_two_events(x_shot, y_shot, x_last, y_last):
+    """
+    A supporting function for calculating the distance between two events, automatically ignore inappropriate values
+    :param x_shot: x coordinate of the shot
+    :param y_shot: y coordinate of the shot
+    :param x_last: x coordinate of the previous event
+    :param y_last: y coordinate of the previous event
+    :return: The distance between the shot and the previous event
+    """
+    if(np.isnan(x_last) or np.isnan(y_last)):
+        return ""
+    else:
+        shot_coordinates = np.array([x_shot, y_shot])
+        last_event_coordinates = np.array([x_last, y_last])
+        return round(np.linalg.norm(shot_coordinates - last_event_coordinates))
 
-#     print("Start adding distance from last event and the shot speed...")
-#     df_game = add_distance_from_last_event_and_speed(df_game)
+def compute_speed_distance_from_last_event(df_game):
+    """
+    Add two columns which are "distance from last event" and "speed" to the dataframe
+    :param df_game: The dataframe which has been added "time from last event" column
+    :return: The dataframe after adding the two columns
+    """
+    df_game_added_features = df_game.copy()
+    df_game_added_features = df_game_added_features.astype({'x shot':'float','y shot':'float','x last event':'float','y last event':'float'})
+    df_game_added_features['distance from last event'] = df_game_added_features.apply(lambda event: compute_distance_two_events(
+                                                                event['x shot'],
+                                                                event['y shot'],
+                                                                event['x last event'],
+                                                                event['y last event']),
+                                                                axis=1)
+    df_game_added_features['speed'] = df_game_added_features.apply(lambda event:compute_speed(
+                                                                event['distance from last event'],
+                                                                event['time from last event']),
+                                                                axis=1)
+    return df_game_added_features
 
-#     print("Finish feature engineering!")
-#     return df_game
+def feature_engineer(tidy_df):
+    """
+    The main function of the task feature engineering
+    :param df_game_tidied: The tidied version of nhl data, stored in a dataframe
+    :return: A new dataframe added all neccesary features.
+    """
+    df_game = tidy_df.copy()
+    
+    print("Start feature engineering for the tidied dataframe...")
+    
+    print("Star,;,,;t correcting incorrect coordinates and adding shot distance...")
+    #This functiklnknlkm;;;,on must always be called at firsvoice paramparat of all, because it help correcting wrong coordinates
+    df_game = add_shot_distance_coordinate_correction(df_game)
+
+    print("Start adding shot angle...")
+    df_game = add_shot_angle(df_game)
+
+    print("Start adding change in shot angle...")
+    df_game = change_in_shot_angle(df_game)
+
+    print("Start adding distance from last event and the shot speed...")
+    df_game = compute_speed_distance_from_last_event(df_game)
+
+    print("Finish feature engineering!")
+    return df_game

@@ -74,9 +74,6 @@ def load_data(features: List[str], train_val_seasons: List[str] = None, test_sea
     X_train, y_train = train.drop(train.columns.difference(features), axis=1), train[target]
     X_val, y_val = val.drop(val.columns.difference(features), axis=1), val[target]
     X_test, y_test = test.drop(test.columns.difference(features), axis=1), test[target]
-    
-    
-
 
     # Scale numeric columns
     if use_standard_scaler:
