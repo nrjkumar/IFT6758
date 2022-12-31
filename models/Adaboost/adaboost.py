@@ -27,7 +27,7 @@ experiment = Experiment(
     )
 
 
-DEFAULT_TRAIN_SEASONS = ['201520216', '20162017', '20172018', '20182019' ]
+DEFAULT_TRAIN_SEASONS = ['20152016', '20162017', '20172018', '20182019' ]
 DEFAULT_TEST_SEASONS = ['20192020']
 
 feature_list =['shot_type', 'strength','is_playoff', 'prev_event_type', 'time_since_prev_event', 'is_rebound', 'distance_to_prev_event','speed_since_prev_event', 'is_penalty_shot','shot_distance', 

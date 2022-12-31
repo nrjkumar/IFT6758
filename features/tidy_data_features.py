@@ -498,13 +498,6 @@ class tidy_dataframe:
         return game_data, period, time_left
 
 
-
-
-
-
-
-
-
     def build_dataframe(self) -> pd.DataFrame:
         """
         This function builds the complete data frame by reading all jsons and storing them in a list,
